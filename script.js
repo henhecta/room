@@ -113,11 +113,13 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       mark.setAttributeNS(null, 'stroke', 'none');
       mark.setAttributeNS(null, 'fill', 'rgb('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')');
       mark.setAttributeNS(null, 'd', "M20 0 L -20 8 L -20 -8");
+      mark.setAttributeNS(null, 'id', 'markid' + stream.peerId);
       let txt = document.createElementNS(ns, 'text');
       txt.setAttributeNS(null, 'x', '0');
       txt.setAttributeNS(null, 'y', '0');
       txt.setAttributeNS(null, 'text-anchor', 'middle');
       txt.setAttributeNS(null, 'dominant-baseline', 'central');
+      txt.setAttributeNS(null, 'id', 'txtid' + stream.peerId);
       let g = document.createElementNS(ns, 'g');
       g.setAttributeNS(null, 'transform', 'translate(100,100)rotate(0)');
       g.setAttributeNS(null, 'id', stream.peerId);
@@ -131,13 +133,13 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     });
 
     room.on('data', ({ data, src }) => {
-      let mark = document.getElementById(src);
+      let g = document.getElementById(src);
       datas = data.split(',');
       if (datas[0] == 'pos') {
-        if (mark == null) {
+        if (g == null) {
           //pannerlocs[src] = loc;
         } else {
-          mark.setAttributeNS(null, 'transform', 'translate(' + datas[1] + ',' + datas[2] + ')rotate(' + datas[3] + ')');
+          g.setAttributeNS(null, 'transform', 'translate(' + datas[1] + ',' + datas[2] + ')rotate(' + datas[3] + ')');
           let loc = [Number(datas[1]), Number(datas[2]), Number(datas[3]) / 180.0 * Math.PI];
           console.log(loc);
           panners[src].setPosition(
@@ -149,12 +151,14 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
         }
       } else if (datas[0] == 'nam') {
         peerName[src] = datas[1];
-        if (mark != null) {
-          mark.getElementsByTagNameNS(null, 'text')[0].innerText = datas[1];
+        let txt = document.getElementById('txtid'+src);
+        if (txt != null) {
+          txt.innerText = datas[1];
         }
       } else if (datas[0] == 'col') {
+        let mark = document.getElementById('markid' + src);
         if (mark != null) {
-          mark.getElementsByTagNameNS(null, 'path')[0].setAttributeNS(null, 'fill', datas[1]);
+          mark.setAttributeNS(null, 'fill', datas[1]);
         }
       }// else {
         messages.textContent += `${peerName[src]}: ${data}\n`;
