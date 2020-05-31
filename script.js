@@ -150,11 +150,11 @@ var myColor = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.r
       } else if (datas[0] == 'nam') {
         peerName[src] = datas[1];
         if (mark != null) {
-          mark.getElementsByTagNameNS(null, 'text').innerText = datas[1];
+          mark.getElementsByTagNameNS(null, 'text')[0].innerText = datas[1];
         }
       } else if (datas[0] == 'col') {
         if (mark != null) {
-          mark.getElementsByTagNameNS(null, 'path').setAttributeNS(null, 'fill', datas[1]);
+          mark.getElementsByTagNameNS(null, 'path')[0].setAttributeNS(null, 'fill', datas[1]);
         }
       } else {
         messages.textContent += `${src}: ${data}\n`;
