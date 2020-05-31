@@ -74,9 +74,20 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
 
     room.once('open', () => {
       messages.textContent += '=== You joined ===\n';
+      setTimeout(function () { room.send('nam,' + myName.value); }, 1000 + Math.random() * 300);
+      setTimeout(function () { room.send('col,'+ myColor); }, 1600 + Math.random() * 300);
     });
     room.on('peerJoin', peerId => {
       messages.textContent += `=== ${peerId} joined ===\n`;
+      setTimeout(function () { room.send('nam,' + myName.value); }, 1000 + Math.random() * 300);
+      setTimeout(function () { room.send('col,'+ myColor); }, 1600 + Math.random() * 300);
+      setTimeout(function () {
+        let newtime = new Date();
+        if (newtime.getTime() - prevsendtime.getTime() > 300) {
+          prevsendtime = newtime;
+          sendme();
+        } }, 2100 + Math.random() * 300);
+
     });
 
     // Render remote stream for new peer join in the room
@@ -128,8 +139,6 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       roomView.appendChild(g);
       pannerlocs[stream.peerId] = [100, 100, 0];
       peerName[stream.peerId] = '';
-      setTimeout(function () { room.send('nam,' + myName.value); }, 1000 + Math.random() * 300);
-      setTimeout(function () { room.send('col,'+ myColor); }, 1600 + Math.random() * 300);
     });
 
     room.on('data', ({ data, src }) => {
