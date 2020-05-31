@@ -253,10 +253,9 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     roomView.addEventListener('click', onClick);
     roomView.addEventListener('mousemove', onMousemove);
     prevsendtime = new Date();
-    sendme();
-
-    room.send('nam,' + myName.innerText);
-    room.send('col,', myColor);
+    setTimeout(function () { sendme(); }, 400 + Math.random() * 300);
+    setTimeout(function () { room.send('nam,' + myName.innerText); }, 900 + Math.random() * 300);
+    setTimeout(function () { room.send('col,', myColor); }, 1400 + Math.random() * 300);
   });
 
   peer.on('error', console.error);
