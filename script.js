@@ -9,7 +9,7 @@ var pannerlocs = {};
 var prevsendtime = new Date();
 var ns = 'http://www.w3.org/2000/svg';
 var peerName = {};
-var myColor = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ')';
+var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).slice(-6);
 (async function main() {
   //const localVideo = document.getElementById('js-local-stream');
   const joinTrigger = document.getElementById('js-join-trigger');
@@ -156,9 +156,9 @@ var myColor = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.r
         if (mark != null) {
           mark.getElementsByTagNameNS(null, 'path')[0].setAttributeNS(null, 'fill', datas[1]);
         }
-      } else {
+      }// else {
         messages.textContent += `${src}: ${data}\n`;
-      }
+      //}
     });
 
     // for closing room members
@@ -235,8 +235,8 @@ var myColor = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.r
     }
     function onClick(e) {
       let rect = e.target.getBoundingClientRect();
-      let mousex = e.clientX - rect.left;
-      let mousey = e.clientY - rect.top;
+      let mousex = (e.clientX - rect.left)*400.0/rect.width;
+      let mousey = (e.clientY - rect.top)*400.0/rect.height;
       myloc[0] = mousex;
       myloc[1] = mousey;
       updateme();
