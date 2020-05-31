@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SkyWay - Room test</title>
+    <style>
+      .room{
+        display: grid;
+        grid-template-columns: 40% 1fr;
+      }
+      .room .messages {
+        background-color: #eee;
+        height: 200px;
+        padding: 8px;
+        margin-top: 0;
+        overflow-y: scroll;
+      }
+      .localtext{
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      .localtext input{
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="heading">Room test</h1>
+      <p class="note" style="display:none;">
+        Change Room mode (before join in a room):
+        <a href="#">mesh</a> / <a href="#sfu">sfu</a>
+      </p>
+      <div>
+        <span id="js-room-mode" style="display:none;"></span>
+        <input type="text" placeholder="Room Name" id="js-room-id">
+        <input type="text" placeholder="表示名" id="name">
+        <button id="js-join-trigger">参加</button>
+        <button id="js-leave-trigger">退出</button>
+      </div>
+      <div class="room">
+        <svg id="room-view" viewBox="0 0 400 400">
+          <rect width="100%" height="100%" fill="none" stroke="black"/>
+        </svg>
+        <div class="remote-streams" id="js-remote-streams" style="display: none;"></div>
+        <div>
+          <pre class="messages" id="js-messages"></pre>
+          <div class="localtext">
+            <input type="text" id="js-local-text">
+            <button id="js-send-trigger">送信</button>
+          </div>
+        </div>
+      </div>
+      <!--<p class="meta" id="js-meta"></p>-->
+    </div>
+    <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    <!--<script src="../_shared/key.js"></script>-->
+    <script src="./script.js"></script>
+  </body>
+</html>
