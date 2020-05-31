@@ -125,6 +125,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       mark.setAttributeNS(null, 'fill', 'rgb('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')');
       mark.setAttributeNS(null, 'd', "M20 0 L -20 8 L -20 -8");
       mark.setAttributeNS(null, 'id', 'markid' + stream.peerId);
+      mark.setAttributeNS(null, 'transform', 'rotate(0)');
       let txt = document.createElementNS(ns, 'text');
       txt.setAttributeNS(null, 'x', '0');
       txt.setAttributeNS(null, 'y', '0');
@@ -132,7 +133,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       txt.setAttributeNS(null, 'dominant-baseline', 'central');
       txt.setAttributeNS(null, 'id', 'txtid' + stream.peerId);
       let g = document.createElementNS(ns, 'g');
-      g.setAttributeNS(null, 'transform', 'translate(100,100)rotate(0)');
+      g.setAttributeNS(null, 'transform', 'translate(100,100)');
       g.setAttributeNS(null, 'id', stream.peerId);
       g.appendChild(mark);
       g.appendChild(txt);
@@ -148,7 +149,8 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
         if (g == null) {
           //pannerlocs[src] = loc;
         } else {
-          g.setAttributeNS(null, 'transform', 'translate(' + datas[1] + ',' + datas[2] + ')rotate(' + datas[3] + ')');
+          g.setAttributeNS(null, 'transform', 'translate(' + datas[1] + ',' + datas[2] + ')');
+          document.getElementById('markid' + src).setAttributeNS(null, 'transform', 'rotate(' + datas[3] + ')');
           let loc = [Number(datas[1]), Number(datas[2]), Number(datas[3]) / 180.0 * Math.PI];
           console.log(loc);
           panners[src].setPosition(
@@ -213,8 +215,8 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     }
 
     function updateme() {
-      let mark = document.getElementById('me');
-      mark.setAttributeNS(null, 'transform', 'translate(' + myloc[0] + ',' + myloc[1] + ')rotate(' + (myloc[2] * 180 / Math.PI) + ')');
+      document.getElementById('id' + 'me').setAttributeNS(null, 'transform', 'translate(' + myloc[0] + ',' + myloc[1] + ')');
+      document.getElementById('markid' + 'me').setAttributeNS(null, 'transform', 'rotate(' + (myloc[2] * 180 / Math.PI) + ')');
       
       for (let key in pannerlocs) {
         if (String(key) == 'me') continue;
@@ -274,7 +276,19 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
   mark.setAttributeNS(null, 'stroke', 'none');
   mark.setAttributeNS(null, 'fill', myColor);
   mark.setAttributeNS(null, 'd', "M20 0 L -20 8 L -20 -8");
-  mark.setAttributeNS(null, 'transform', 'translate(100,100)rotate(0)');
-  mark.setAttributeNS(null, 'id', 'me');
-  roomView.appendChild(mark);
+  mark.setAttributeNS(null, 'id', 'markid' + 'me');
+  mark.setAttributeNS(null, 'transform', 'rotate(0)');
+  let txt = document.createElementNS(ns, 'text');
+  txt.setAttributeNS(null, 'x', '0');
+  txt.setAttributeNS(null, 'y', '0');
+  txt.setAttributeNS(null, 'text-anchor', 'middle');
+  txt.setAttributeNS(null, 'dominant-baseline', 'central');
+  txt.setAttributeNS(null, 'id', 'txtid' + 'me');
+  txt.textContent = myName;
+  let g = document.createElementNS(ns, 'g');
+  g.setAttributeNS(null, 'transform', 'translate(100,100)');
+  g.setAttributeNS(null, 'id', 'me');
+  g.appendChild(mark);
+  g.appendChild(txt);
+  roomView.appendChild(g);
 })();
