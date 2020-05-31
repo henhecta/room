@@ -153,7 +153,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
         peerName[src] = datas[1];
         let txt = document.getElementById('txtid'+src);
         if (txt != null) {
-          txt.innerText = datas[1];
+          txt.nodeValue = datas[1];
         }
       } else if (datas[0] == 'col') {
         let mark = document.getElementById('markid' + src);
