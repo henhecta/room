@@ -220,8 +220,8 @@ var myColor = 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.r
     }
     function onMousemove(e) {
       let rect = e.target.getBoundingClientRect();
-      let mousex = e.clientX - rect.left;
-      let mousey = e.clientY - rect.top;
+      let mousex = (e.clientX - rect.left)*400.0/rect.width;
+      let mousey = (e.clientY - rect.top)*400.0/rect.height;
       let x = mousex - myloc[0];
       let y = mousey - myloc[1];
       if (x == 0 && y == 0) return;
