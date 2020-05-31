@@ -135,7 +135,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       txt.setAttributeNS(null, 'id', 'txtid' + stream.peerId);
       let g = document.createElementNS(ns, 'g');
       g.setAttributeNS(null, 'transform', 'translate(100,100)');
-      g.setAttributeNS(null, 'id', stream.peerId);
+      g.setAttributeNS(null, 'id', 'gid' + stream.peerId);
       g.appendChild(mark);
       g.appendChild(txt);
       roomView.appendChild(g);
@@ -144,7 +144,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     });
 
     room.on('data', ({ data, src }) => {
-      let g = document.getElementById(src);
+      let g = document.getElementById('gid'+src);
       datas = data.split(',');
       if (datas[0] == 'pos') {
         if (g == null) {
@@ -186,7 +186,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       remoteVideo.srcObject = null;
       remoteVideo.remove();
 
-      let mark = document.getElementById(peerId);
+      let mark = document.getElementById('gid'+peerId);
       mark.remove();
       delete panners[peerId];
       delete pannerlocs[peerId];
@@ -216,7 +216,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     }
 
     function updateme() {
-      document.getElementById('id' + 'me').setAttributeNS(null, 'transform', 'translate(' + myloc[0] + ',' + myloc[1] + ')');
+      document.getElementById('gid' + 'me').setAttributeNS(null, 'transform', 'translate(' + myloc[0] + ',' + myloc[1] + ')');
       document.getElementById('markid' + 'me').setAttributeNS(null, 'transform', 'rotate(' + (myloc[2] * 180 / Math.PI) + ')');
       
       for (let key in pannerlocs) {
@@ -288,7 +288,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
   txt.textContent = '';
   let g = document.createElementNS(ns, 'g');
   g.setAttributeNS(null, 'transform', 'translate(100,100)');
-  g.setAttributeNS(null, 'id', 'me');
+  g.setAttributeNS(null, 'id', 'gid'+'me');
   g.appendChild(mark);
   g.appendChild(txt);
   roomView.appendChild(g);
