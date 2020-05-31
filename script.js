@@ -157,7 +157,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
           mark.getElementsByTagNameNS(null, 'path')[0].setAttributeNS(null, 'fill', datas[1]);
         }
       }// else {
-        messages.textContent += `${src}: ${data}\n`;
+        messages.textContent += `${peerName[src]}: ${data}\n`;
       //}
     });
 
