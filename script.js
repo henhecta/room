@@ -75,7 +75,8 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
     room.once('open', () => {
       messages.textContent += '=== You joined ===\n';
       setTimeout(function () { room.send('nam,' + myName.value); }, 1000 + Math.random() * 300);
-      setTimeout(function () { room.send('col,'+ myColor); }, 1600 + Math.random() * 300);
+      setTimeout(function () { room.send('col,' + myColor); }, 1600 + Math.random() * 300);
+      document.getElementById('txtid' + 'me').textContent = myName.value;
     });
     room.on('peerJoin', peerId => {
       messages.textContent += `=== ${peerId} joined ===\n`;
@@ -284,7 +285,7 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
   txt.setAttributeNS(null, 'text-anchor', 'middle');
   txt.setAttributeNS(null, 'dominant-baseline', 'central');
   txt.setAttributeNS(null, 'id', 'txtid' + 'me');
-  txt.textContent = myName;
+  txt.textContent = '';
   let g = document.createElementNS(ns, 'g');
   g.setAttributeNS(null, 'transform', 'translate(100,100)');
   g.setAttributeNS(null, 'id', 'me');
