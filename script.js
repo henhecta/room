@@ -126,8 +126,8 @@ var myColor = '#'+('000000'+Math.floor(Math.random() * 0xFFFFFF).toString(16)).s
       roomView.appendChild(g);
       pannerlocs[stream.peerId] = [100, 100, 0];
       peerName[stream.peerId] = '';
-      room.send('nam,' + myName.innerText);
-      room.send('col,', myColor);
+      setTimeout(function () { room.send('nam,' + myName.innerText); }, 300 + Math.random() * 100);
+      setTimeout(function () { room.send('col,', myColor); }, 600 + Math.random() * 100);
     });
 
     room.on('data', ({ data, src }) => {
